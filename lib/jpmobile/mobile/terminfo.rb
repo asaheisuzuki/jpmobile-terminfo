@@ -3,6 +3,7 @@ module Jpmobile
   module Mobile
     class Terminfo
       autoload :Docomo, 'jpmobile/mobile/terminfo/docomo'
+      autoload :Softbank, 'jpmobile/mobile/terminfo/softbank'
 
       def initialize(carrier, env)
         case carrier.class.name
@@ -38,6 +39,9 @@ module Jpmobile
               @colors = $1.to_i
             end
           end
+          display_info = Softbank::DISPLAY_INFO[carrier.model_name] || {}
+          @browser_width  = display_info[:browser_width]
+          @browser_height = display_info[:browser_height]
         end
       end
 
